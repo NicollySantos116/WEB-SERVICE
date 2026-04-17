@@ -1,7 +1,7 @@
 import prisma from '../lib/services/prismaClient.js';
 
 export default class ExemploModel {
-    constructor({ id = null, nome, estado = true, preco = null , foto = null, documento = null} = {}) {
+    constructor({ id = null, nome,foto = null, documento = null} = {}) {
         this.id = id;
         this.nome = nome
         this.foto = foto;
@@ -21,7 +21,7 @@ export default class ExemploModel {
     async atualizar() {
         return prisma.exemplo.update({
             where: { id: this.id },
-            data: { nome: this.nome},
+            data: { nome: this.nome,foto:this.foto,documento: this.documento},
         });
     }
 
@@ -35,7 +35,7 @@ export default class ExemploModel {
         if (filtros.nome) {
             where.nome = { contains: filtros.nome, mode: 'insensitive' };
         }
-        
+
         return prisma.exemplo.findMany({ where });
     }
 
